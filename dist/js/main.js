@@ -1,0 +1,1 @@
+(()=>{"use strict";(()=>{const o="one JS file";console.log(o),console.log(o)})(),console.log("two JS file"),console.log("тро-ло-ло")})();
