@@ -12,7 +12,6 @@ const menu = () => {
 
     const scroll = (element) => {
         const id = element.getAttribute('href');
-
         document.querySelector(id).scrollIntoView({
             behavior: 'smooth',
             block: 'start'
@@ -27,7 +26,10 @@ const menu = () => {
     }
 
     menuBtn.addEventListener('click', handleMenu);
-    closeBtn.addEventListener('click', handleMenu);
+    closeBtn.addEventListener('click', function(e) {
+         e.preventDefault();
+         handleMenu();
+    });
     menuItems.forEach(elem => elem.addEventListener('click', handleMenu));
     arrowDown.addEventListener('click', function(e) {
         e.preventDefault();
