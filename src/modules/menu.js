@@ -18,7 +18,6 @@ const menu = () => {
     }
 
     body.addEventListener('click', (e) => {
-        console.log(e.target)
        if (e.target.closest('.menu')) {
             handleMenu();
         } else if (e.target === arrowDownImg) {
