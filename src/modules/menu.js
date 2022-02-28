@@ -1,9 +1,6 @@
 const menu = () => {
-    const menuBtn = document.querySelector('.menu');
+    const main = document.querySelector('main');
     const menu = document.querySelector('menu');
-    const closeBtn = menu.querySelector('.close-btn');
-    const menuItems = menu.querySelectorAll('ul>li>a');
-    const hashLinks = menu.querySelectorAll('a[href^="#"]');
     const arrowDown = document.querySelector('main>a');
 
     const handleMenu = () => {
@@ -15,26 +12,29 @@ const menu = () => {
         document.querySelector(id).scrollIntoView({
             behavior: 'smooth',
             block: 'start'
-        }   );
-    }
-
-    for (let i = 1; i < hashLinks.length; i++) {
-        hashLinks[i].addEventListener('click', function (e) {
-            e.preventDefault();
-            scroll(hashLinks[i])
         });
     }
 
-    menuBtn.addEventListener('click', handleMenu);
-    closeBtn.addEventListener('click', function(e) {
-         e.preventDefault();
-         handleMenu();
+    main.addEventListener('click', (e) => {
+        if (e.target.closest('.menu')) {
+            handleMenu();
+        } else if (e.target.closest('a')) {
+            e.preventDefault();
+            scroll(arrowDown) 
+        }
     });
-    menuItems.forEach(elem => elem.addEventListener('click', handleMenu));
-    arrowDown.addEventListener('click', function(e) {
-        e.preventDefault();
-        scroll(arrowDown) 
-    })
+
+    menu.addEventListener('click', (e) => {
+        if(e.target.matches('ul>li>a')) {
+           let link = e.target.closest('a');
+           e.preventDefault();
+           scroll(link);
+           handleMenu();
+        } else if (e.target.closest('.close-btn')) {
+            e.preventDefault();
+            handleMenu();
+        }
+    });
 }
 
 export default menu
