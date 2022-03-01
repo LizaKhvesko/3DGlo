@@ -1,6 +1,5 @@
 const menu = () => {
     const body = document.querySelector('body');
-    const main = document.querySelector('main');
     const menu = document.querySelector('menu');
     const arrowDown = document.querySelector('main>a');
     const arrowDownImg = document.querySelector('main>a>img');
