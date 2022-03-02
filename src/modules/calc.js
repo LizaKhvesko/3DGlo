@@ -29,10 +29,41 @@ const calc = (price = 100) => {
         } else {
             totalValue = 0;
         }
-        total.textContent = totalValue;
+    
+        const animateNumbers = (result) => {
+        if (result === 0) return;
+        let start = +total.textContent;
+        let increment;
+        if (result > start) {
+           increment = 1 
+        } else if (result < start) {
+            increment = -1
+        } else if (result === start) {
+            return
+        }
+        
+        let current = start;
+        let timer  = setInterval(function() {
+            current += increment;
+            total.textContent = current;
+            calcType.disabled = true;
+            calcSquare.disabled = true;
+            calcCount.disabled = true;
+            calcDay.disabled = true;
+            if (current === result) {
+                clearInterval(timer);
+                calcType.disabled = false;
+                calcSquare.disabled = false;
+                calcCount.disabled = false;
+                calcDay.disabled = false;
+            }
+            }, 0.0002)
+        }
+
+        animateNumbers(totalValue)
     }
 
-    calcBlock.addEventListener('input', (e) => {
+    calcBlock.addEventListener('change', (e) => {
         if (e.target === calcType || e.target === calcSquare ||
             e.target === calcCount || e.target === calcDay) {
                 countCalc();
