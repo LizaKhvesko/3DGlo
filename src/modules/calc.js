@@ -31,33 +31,31 @@ const calc = (price = 100) => {
         }
     
         const animateNumbers = (result) => {
-        if (result === 0) return;
-        let start = +total.textContent;
-        let increment;
-        if (result > start) {
-           increment = 1 
-        } else if (result < start) {
-            increment = -1
-        } else if (result === start) {
-            return
-        }
-        
-        let current = start;
-        let timer  = setInterval(function() {
-            current += increment;
-            total.textContent = current;
-            calcType.disabled = true;
-            calcSquare.disabled = true;
-            calcCount.disabled = true;
-            calcDay.disabled = true;
-            if (current === result) {
+            let timer;
+            if(timer) {
                 clearInterval(timer);
-                calcType.disabled = false;
-                calcSquare.disabled = false;
-                calcCount.disabled = false;
-                calcDay.disabled = false;
-            }
-            }, 0.0002)
+                animateNumbers(result)
+            } else {
+                if (result === 0) return;
+                let start = +total.textContent;
+                let increment;
+                if (result > start) {
+                    increment = 1 
+                } else if (result < start) {
+                    increment = -1
+                } else if (result === start) {
+                    return
+                }
+        
+                let current = start;
+                timer  = setInterval(function() {
+                current += increment;
+                total.textContent = current;
+                    if (current === result) {
+                        clearInterval(timer);
+                    }
+                }, 0.0001)
+            }    
         }
 
         animateNumbers(totalValue)
