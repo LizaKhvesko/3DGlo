@@ -31,36 +31,18 @@ const calc = (price = 100) => {
         } else {
             totalValue = 0;
         }
-    
-        const animateNumbers = (result) => {
-            let timer;
-            if(timer) {
-                clearInterval(timer);
-                animateNumbers(result)
-            } else {
-                if (result === 0) return;
-                let start = +total.textContent;
-                let increment;
-                if (result > start) {
-                    increment = 1 
-                } else if (result < start) {
-                    increment = -1
-                } else if (result === start) {
-                    return
-                }
-        
-                let current = start;
-                timer  = setInterval(function() {
-                current += increment;
-                total.textContent = current;
-                    if (current === result) {
-                        clearInterval(timer);
-                    }
-                }, 0.0001)
-            }    
-        }
 
-        animateNumbers(totalValue)
+        let diff = totalValue - +total.textContent;
+        let start = +total.textContent;
+         animate({
+                  duration: 1000,
+                  timing(timeFraction) {
+                     return timeFraction;
+                  },
+                  draw(progress) {
+                    total.textContent = start + Math.round(diff * progress)
+                  }
+               });
     }
 
     calcBlock.addEventListener('change', (e) => {
