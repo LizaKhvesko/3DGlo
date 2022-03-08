@@ -1,6 +1,7 @@
 const validation = () => {
     const calcItemsNumber = document.querySelectorAll('input.calc-item');
-    const inputsText = document.querySelectorAll('input[id*=name], input.mess');
+    const inputsName = document.querySelectorAll('input[id*=name]');
+    const inputMess = document.querySelector('.mess');
     const emails = document.querySelectorAll('input[type="email"]');
     const tels = document.querySelectorAll('input[type="tel"]');
 
@@ -48,18 +49,27 @@ const validation = () => {
         });
     });
 
-    inputsText.forEach(item => {
+    inputsName.forEach(item => {
         item.addEventListener('input', function(e) {
-            e.target.value = e.target.value.replace(/[^а-яА-я\s\-]/g, '');   
+            e.target.value = e.target.value.replace(/[^а-яА-я\s]/g, '');   
         })
     })
  
-     inputsText.forEach(item => {
+     inputsName.forEach(item => {
         item.addEventListener('blur', function() {
             noMoreSpace(item);
-            noMoreHyphen(item);
             letters(item);
         })
+    })
+
+    inputMess.addEventListener('input', function(e) {
+        e.target.value = e.target.value.replace(/[^а-яА-я0-9\s\.\,\:\-\?\!\;]/g, '');   
+    })
+
+    inputMess.addEventListener('blur', function() {
+        noMoreSpace(inputMess);
+        noMoreHyphen(inputMess)
+
     })
 
     emails.forEach(item => {
@@ -76,7 +86,7 @@ const validation = () => {
 
     tels.forEach(item => {
         item.addEventListener('input', function(e) {
-            e.target.value = e.target.value.replace(/[^0-9\(\)\-]/g, '');
+            e.target.value = e.target.value.replace(/[^0-9\(\)\-\+]/g, '');
         })
     })
 

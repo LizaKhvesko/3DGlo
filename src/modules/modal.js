@@ -13,7 +13,7 @@ const modal = () => {
            } else {
               modal.style.display = 'block';
                  animate({
-                  duration: 2000,
+                  duration: 1000,
                   timing(timeFraction) {
                      return timeFraction;
                   },
