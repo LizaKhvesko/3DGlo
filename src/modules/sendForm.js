@@ -4,7 +4,10 @@ const sendForm = ({ formId, someElem = [] }) => {
     statusBlock.classList.add('status')
     const errorText = 'Ошибка...';
     const successText = 'Спасибо, наш менеджер с Вами свяжется!';
-    const emptyText = 'Заполните все поля!'
+    const formElements = form.querySelectorAll('input');
+        formElements.forEach(form => {
+            form.required = true;
+        })
 
     const sendData = (data) => {
        return fetch('https://jsonplaceholder.typicode.com/posts', {
@@ -17,48 +20,43 @@ const sendForm = ({ formId, someElem = [] }) => {
     }
 
     const submitForm = () => {
-        const formElements = form.querySelectorAll('input');
-        const email = form.querySelector('input[type="email"]');
         const formData = new FormData(form);
         const formBody = {};
 
         form.append(statusBlock);
-        
-        if (email.value === '') {
-           statusBlock.textContent =  emptyText;
-        } else {
-            statusBlock.textContent = ''
-            statusBlock.classList.add('sk-rotating-plane');
 
-            formData.forEach((val, key) => {
-                formBody[key] = val;
-            })
+        statusBlock.textContent = ''
+        statusBlock.classList.add('sk-rotating-plane');
 
-            someElem.forEach(elem => {
-                const element = document.getElementById(elem.id);
-                if (elem.type === 'block') {
-                    formBody[elem.id] = element.textContent;
-                } else if (elem.type === 'input'){
-                    formBody[elem.id] = element.value;  
-                }
-            })
+        formData.forEach((val, key) => {
+            formBody[key] = val; 
+        })
 
-            sendData(formBody)
-                .then(data => {
-                    statusBlock.classList.remove('sk-rotating-plane');
-                    statusBlock.textContent = successText;
+        someElem.forEach(elem => {
+            const element = document.getElementById(elem.id);
+            if (elem.type === 'block') {
+                formBody[elem.id] = element.textContent;
+            } else if (elem.type === 'input'){
+                formBody[elem.id] = element.value;  
+            }
+        })
 
-                    formElements.forEach(input => {
-                        input.value = ''
-                    })
-                })
-                .catch(error => {
+        sendData(formBody)
+            .then(data => {
                 statusBlock.classList.remove('sk-rotating-plane');
-                statusBlock.textContent = errorText; 
-                })
-        }
+                statusBlock.textContent = successText;
 
-        
+                setTimeout(() => statusBlock.remove(), 4000);
+
+                formElements.forEach(input => {
+                    input.value = ''
+                })
+            })
+            .catch(error => {
+                statusBlock.classList.remove('sk-rotating-plane');
+                statusBlock.textContent = errorText;
+                setTimeout(() => statusBlock.remove(), 4000);
+            })
     }
 
    try {
@@ -68,7 +66,7 @@ const sendForm = ({ formId, someElem = [] }) => {
 
         form.addEventListener('submit', (e) => {
             e.preventDefault();
-
+            
             submitForm()
         })
    } catch (error) {

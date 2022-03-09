@@ -54,11 +54,14 @@ const validation = () => {
             e.target.value = e.target.value.replace(/[^а-яА-я\s]/g, '');   
         })
     })
- 
-     inputsName.forEach(item => {
+
+    inputsName.forEach(item => {
         item.addEventListener('blur', function() {
             noMoreSpace(item);
             letters(item);
+            if(item.value.length < 2) {
+               item.value = '';
+           } 
         })
     })
 
@@ -68,7 +71,7 @@ const validation = () => {
 
     inputMess.addEventListener('blur', function() {
         noMoreSpace(inputMess);
-        noMoreHyphen(inputMess)
+        noMoreHyphen(inputMess);
 
     })
 
@@ -93,6 +96,11 @@ const validation = () => {
     tels.forEach(item => {
         item.addEventListener('blur', function(e) {
            noMoreHyphen(item);
+           let number = item.value;
+           let onlyNumbers = number.split('').filter(symbol => Number.isInteger(+symbol));
+           if(onlyNumbers.length < 11) {
+               item.value = '';
+           }
         })
     })
 }
