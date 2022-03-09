@@ -5,9 +5,10 @@ const sendForm = ({ formId, someElem = [] }) => {
     const errorText = 'Ошибка...';
     const successText = 'Спасибо, наш менеджер с Вами свяжется!';
     const formElements = form.querySelectorAll('input');
-        formElements.forEach(form => {
-            form.required = true;
-        })
+        
+    formElements.forEach(form => {
+        form.required = true;
+    })
 
     const sendData = (data) => {
         
@@ -67,6 +68,7 @@ const sendForm = ({ formId, someElem = [] }) => {
 
         form.addEventListener('submit', (e) => {
             e.preventDefault();
+           
             submitForm()
         })
    } catch (error) {

@@ -59,10 +59,8 @@ const validation = () => {
         item.addEventListener('blur', function() {
             noMoreSpace(item);
             letters(item);
-            let text = item.value
             if(text.length < 2) {
-               item.value = 'Введите минимум 2 символа';
-               setTimeout(() => item.value = text, 2000) 
+               item.value = '';
            } 
         })
     })
@@ -101,8 +99,7 @@ const validation = () => {
            let number = item.value;
            let onlyNumbers = number.split('').filter(symbol => Number.isInteger(+symbol));
            if(onlyNumbers.length < 11) {
-              item.value = 'Введите 11 цифр!'
-              setTimeout(() => item.value = number, 2000) 
+              item.value = ''
            } 
         })
     })
