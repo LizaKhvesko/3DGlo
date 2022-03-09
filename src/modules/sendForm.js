@@ -10,6 +10,7 @@ const sendForm = ({ formId, someElem = [] }) => {
         })
 
     const sendData = (data) => {
+        
        return fetch('https://jsonplaceholder.typicode.com/posts', {
             method: 'POST',
             body: JSON.stringify(data),
@@ -66,7 +67,6 @@ const sendForm = ({ formId, someElem = [] }) => {
 
         form.addEventListener('submit', (e) => {
             e.preventDefault();
-            
             submitForm()
         })
    } catch (error) {

@@ -59,8 +59,10 @@ const validation = () => {
         item.addEventListener('blur', function() {
             noMoreSpace(item);
             letters(item);
-            if(item.value.length < 2) {
-               item.value = '';
+            let text = item.value
+            if(text.length < 2) {
+               item.value = 'Введите минимум 2 символа';
+               setTimeout(() => item.value = text, 2000) 
            } 
         })
     })
@@ -94,13 +96,14 @@ const validation = () => {
     })
 
     tels.forEach(item => {
-        item.addEventListener('blur', function(e) {
+        item.addEventListener('blur', function() {
            noMoreHyphen(item);
            let number = item.value;
            let onlyNumbers = number.split('').filter(symbol => Number.isInteger(+symbol));
            if(onlyNumbers.length < 11) {
-               item.value = '';
-           }
+              item.value = 'Введите 11 цифр!'
+              setTimeout(() => item.value = number, 2000) 
+           } 
         })
     })
 }
