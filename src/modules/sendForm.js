@@ -22,43 +22,48 @@ const sendForm = ({ formId, someElem = [] }) => {
     }
 
     const submitForm = () => {
-        const formData = new FormData(form);
-        const formBody = {};
+        const inputs = Array.from(form.querySelectorAll('input'));
+        if (inputs.every(input => input.style.border !== '3px solid red')) {
+            const formData = new FormData(form);
+            const formBody = {};
 
-        form.append(statusBlock);
+            form.append(statusBlock);
 
-        statusBlock.textContent = ''
-        statusBlock.classList.add('sk-rotating-plane');
+            statusBlock.textContent = ''
+            statusBlock.classList.add('sk-rotating-plane');
 
-        formData.forEach((val, key) => {
-            formBody[key] = val; 
-        })
+            formData.forEach((val, key) => {
+                formBody[key] = val; 
+            })
 
-        someElem.forEach(elem => {
-            const element = document.getElementById(elem.id);
-            if (elem.type === 'block') {
-                formBody[elem.id] = element.textContent;
-            } else if (elem.type === 'input'){
-                formBody[elem.id] = element.value;  
-            }
-        })
+            someElem.forEach(elem => {
+                const element = document.getElementById(elem.id);
+                if (elem.type === 'block') {
+                    formBody[elem.id] = element.textContent;
+                } else if (elem.type === 'input'){
+                    formBody[elem.id] = element.value;  
+                }
+            })
 
-        sendData(formBody)
-            .then(data => {
-                statusBlock.classList.remove('sk-rotating-plane');
-                statusBlock.textContent = successText;
+            sendData(formBody)
+                .then(data => {
+                    statusBlock.classList.remove('sk-rotating-plane');
+                    statusBlock.textContent = successText;
 
-                setTimeout(() => statusBlock.remove(), 4000);
+                    setTimeout(() => statusBlock.remove(), 4000);
 
-                formElements.forEach(input => {
-                    input.value = ''
+                    formElements.forEach(input => {
+                        input.value = ''
+                    })
                 })
-            })
-            .catch(error => {
-                statusBlock.classList.remove('sk-rotating-plane');
-                statusBlock.textContent = errorText;
-                setTimeout(() => statusBlock.remove(), 4000);
-            })
+                .catch(error => {
+                    statusBlock.classList.remove('sk-rotating-plane');
+                    statusBlock.textContent = errorText;
+                    setTimeout(() => statusBlock.remove(), 4000);
+                })
+        } else {
+            return
+        }
     }
 
    try {

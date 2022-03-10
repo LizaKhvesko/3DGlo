@@ -68,7 +68,7 @@ const validation = () => {
     })
 
     inputMess.addEventListener('input', function(e) {
-        e.target.value = e.target.value.replace(/[^а-яА-я0-9\s\.\,\:\-\?\!\;]/g, '');   
+        e.target.value = e.target.value.replace(/[^а-яА-я0-9\s\.\,\:\-\?\!\;]/g, '');
     })
 
     inputMess.addEventListener('blur', function() {
@@ -80,6 +80,11 @@ const validation = () => {
     emails.forEach(item => {
         item.addEventListener('input', function(e) {
             e.target.value = e.target.value.replace(/[^a-zA-Z0-9\@\-\_\.\!\~\*\']/g, '');
+             if (e.target.value.length < 5) {
+                item.style.border = '3px solid red'
+            } else {
+                item.style.border = ''
+            }
         })
     })
 
