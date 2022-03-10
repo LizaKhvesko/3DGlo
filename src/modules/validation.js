@@ -51,7 +51,12 @@ const validation = () => {
 
     inputsName.forEach(item => {
         item.addEventListener('input', function(e) {
-            e.target.value = e.target.value.replace(/[^а-яА-я\s]/g, '');   
+            e.target.value = e.target.value.replace(/[^а-яА-я\s]/g, '');
+            if (e.target.value.length < 2) {
+                item.style.border = '3px solid red'
+            } else {
+                item.style.border = ''
+            }
         })
     })
 
@@ -59,9 +64,6 @@ const validation = () => {
         item.addEventListener('blur', function() {
             noMoreSpace(item);
             letters(item);
-            if(text.length < 2) {
-               item.value = '';
-           } 
         })
     })
 
@@ -90,17 +92,19 @@ const validation = () => {
     tels.forEach(item => {
         item.addEventListener('input', function(e) {
             e.target.value = e.target.value.replace(/[^0-9\(\)\-\+]/g, '');
+            let number = item.value;
+            let onlyNumbers = number.split('').filter(symbol => Number.isInteger(+symbol));
+            if(onlyNumbers.length < 11) {
+                item.style.border = '3px solid red'
+            } else {
+                item.style.border = ''
+            }
         })
     })
 
     tels.forEach(item => {
         item.addEventListener('blur', function() {
            noMoreHyphen(item);
-           let number = item.value;
-           let onlyNumbers = number.split('').filter(symbol => Number.isInteger(+symbol));
-           if(onlyNumbers.length < 11) {
-              item.value = ''
-           } 
         })
     })
 }
